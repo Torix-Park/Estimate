@@ -1,0 +1,545 @@
+// Variables for reusable values
+$color-primary: #007bff;
+$color-secondary: #77bfc7;
+$color-danger: #e74c3c;
+$color-light: #f9f9f9;
+$color-dark: #333;
+$color-hover: #d3f8e2;
+$color-green: #28a745;
+$box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+$transition: 0.3s ease;
+
+// Dark mode palette
+$dark-bg: #121212;
+$dark-card: #1e1e1e;
+$dark-text: #e0e0e0;
+$dark-border: #333;
+$dark-hover: #444;
+$dark-primary: #375a7f;
+$dark-secondary: #52788c;
+
+// Mixin for flex alignment
+@mixin flex-center($align: center) {
+  display: flex;
+  align-items: $align;
+}
+
+// Apply theme using dark-mode class
+.darkmode {
+  .container {
+    background-color: $dark-bg;
+  }
+
+  button {
+    color: $dark-text;
+    background-color: $dark-primary;
+
+    &:hover {
+      background-color: darken($dark-primary, 10%);
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+  .product_container,
+  .estimate_container {
+    background-color: $dark-card;
+    color: $dark-text;
+    box-shadow: $box-shadow;
+
+    .header {
+      color: $dark-text;
+    }
+  }
+
+  .pagination {
+    button {
+      background-color: $dark-card;
+      color: $dark-text;
+      border: 1px solid $dark-border;
+
+      &:hover {
+        background-color: $dark-hover;
+      }
+
+      &.active {
+        background-color: $dark-primary;
+        color: $dark-text;
+      }
+    }
+  }
+
+  .products,
+  .estimate {
+    background-color: $dark-card;
+    border: 1px solid $dark-border;
+
+    table {
+      background-color: $dark-card;
+
+      thead tr {
+        background-color: $dark-secondary;
+      }
+
+      tbody tr {
+        &:nth-of-type(even) {
+          background-color: $dark-bg;
+        }
+
+        &:hover {
+          background-color: $dark-hover;
+          color: lighten($dark-text, 20%);
+        }
+      }
+    }
+  }
+}
+
+.container {
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  height: 90vh;
+  background-color: #f7f7f7; /* 밝은 회색 */
+}
+
+button {
+  cursor: pointer;
+  padding: 8px;
+  font-size: 14px;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: $transition;
+  color: $color-light;
+  border: none;
+
+  &:hover {
+    box-shadow: $box-shadow;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+::-webkit-scrollbar-thumb {
+  background: #cccccc;
+  border-radius: 3px;
+
+  &:hover {
+    background-color: #999999;
+  }
+}
+
+.product_container,
+.estimate_container {
+  background-color: #fff;
+  box-shadow: $box-shadow;
+  padding: 0 16px;
+  height: 100%;
+  border-radius: 6px;
+
+  &.product_container {
+    flex: 4;
+  }
+
+  &.estimate_container {
+    flex: 2.5;
+
+    .header {
+      font-size: 1.5em;
+      color: $color-dark;
+      margin: 16px 0;
+      height: 32px;
+    }
+  }
+}
+
+.product_controls,
+.estimate_controls {
+  @include flex-center(center);
+  margin: 16px 0;
+  height: 32px;
+  position: relative;
+  font-size: 1em;
+
+  .reset_button,
+  .preview_button {
+    &.reset_button {
+      background-color: $color-danger;
+
+      &:hover {
+        background-color: darken($color-danger, 10%);
+      }
+    }
+
+    &.preview_button {
+      background-color: $color-primary;
+
+      &:hover {
+        background-color: darken($color-primary, 10%);
+      }
+    }
+  }
+
+  &.product_controls {
+    label {
+      margin-right: 8px;
+    }
+
+    select,
+    input[type='text'] {
+      padding: 8px;
+    }
+
+    input[type='text'] {
+      width: 40%;
+      border-radius: 5px;
+      border: 1px solid $color-dark;
+      margin-right: auto;
+    }
+
+    .preview_image_switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 25px;
+      margin: 0 10px;
+
+      input[type='checkbox'] {
+        opacity: 0;
+        width: 0;
+        height: 0;
+
+        &:checked + .slider {
+          background-color: $color-primary;
+
+          &::before {
+            transform: translateX(24px);
+          }
+        }
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        inset: 0;
+        background-color: #ccc;
+        border-radius: 25px;
+        transition: $transition;
+
+        &::before {
+          position: absolute;
+          content: '';
+          height: 17px;
+          width: 17px;
+          left: 4px;
+          bottom: 4px;
+          background-color: #fff;
+          border-radius: 50%;
+          transition: $transition;
+        }
+      }
+    }
+  }
+
+  &.estimate_controls {
+    gap: 8px;
+
+    .total {
+      margin: 0;
+      margin-right: auto;
+      font-size: 1.25em;
+      font-weight: bold;
+      color: $color-dark;
+    }
+
+    .download_container {
+      position: relative;
+
+      &:hover .download_buttons {
+        display: block;
+      }
+
+      .download_buttons {
+        width: 100%;
+        display: none;
+        position: absolute;
+        bottom: 100%;
+        right: 0;
+        border-radius: 8px 8px 0 0;
+        box-shadow: $box-shadow;
+        z-index: 100;
+        background-color: #e3f2fd;
+
+        button {
+          width: 100%;
+          @include flex-center(center);
+          background-color: #e3f2fd;
+          color: $color-dark;
+          border-radius: 0px;
+          border-bottom: 1px solid $color-dark;
+
+          &:last-child {
+            border: none;
+          }
+
+          &:hover {
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+          }
+
+          &:active {
+            transform: scale(0.97);
+          }
+
+          img {
+            width: 20px;
+            padding-right: 8px;
+            margin-right: auto;
+          }
+        }
+      }
+
+      .download_button {
+        background-color: $color-green;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+          background-color: darken($color-green, 10%);
+        }
+
+        img {
+          width: 20px;
+        }
+      }
+    }
+  }
+}
+
+.pagination {
+  @include flex-center(center);
+  justify-content: center;
+  margin: 16px 0;
+  height: 32px;
+
+  button {
+    margin: 0 4px;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    color: $color-dark;
+    font-weight: normal;
+
+    &.active {
+      background-color: lighten($color-green, 10%);
+      font-weight: bold;
+      color: $color-light;
+    }
+
+    &:hover {
+      background-color: $color-green;
+      color: $color-light;
+    }
+  }
+}
+
+.products,
+.estimate {
+  height: calc(100% - 128px);
+  overflow: auto;
+  border: 1px solid #e0e0e0; /* 얇은 구분선 */
+}
+
+.products {
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1em;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    background-color: #fff;
+
+    thead tr {
+      background-color: #77bfc7;
+      color: $color-light;
+      text-align: left;
+      font-weight: bold;
+    }
+
+    #price {
+      &:hover {
+        background-color: #f0f0f0;
+        color: #000;
+      }
+    }
+
+    th,
+    td {
+      user-select: none;
+      padding: 8px 16px;
+      border: 1px solid #ddd;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid #ddd;
+
+      &:nth-of-type(even) {
+        background-color: #f3f3f3; /* 짝수 행 배경색 */
+      }
+
+      &:nth-of-type(odd) {
+        background-color: #ffffff; /* 홀수 행 배경색 */
+      }
+
+      &:hover {
+        background-color: #d3f8e2; /* 마우스 호버 시 배경색 */
+        color: #005b96; /* 텍스트 색상 변경 */
+        cursor: pointer;
+        transition: all 0.4s ease;
+      }
+
+      .img {
+        text-align: center;
+        padding: 8px;
+
+        img {
+          border: 1px solid #ddd;
+        }
+      }
+
+      td button {
+        width: 100%;
+        background-color: #007bff;
+        color: $color-light;
+        border: none;
+        font-size: 14px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: #0056b3;
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        &:active {
+          transform: scale(0.95);
+        }
+      }
+    }
+
+    img {
+      height: 50px;
+      width: auto;
+      object-fit: contain;
+    }
+  }
+}
+
+.estimate {
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    thead {
+      background-color: #009879;
+      color: $color-light;
+
+      tr {
+        width: 100%;
+        text-align: left;
+      }
+    }
+
+    th,
+    td {
+      padding: 12px;
+      border: 1px solid #ddd;
+    }
+
+    tbody {
+      tr {
+        height: 65px;
+
+        &:nth-of-type(even) {
+          background-color: #f3f3f3;
+        }
+
+        &:hover {
+          background-color: #d3f8e2;
+          color: #005b96; /* 텍스트 색상 변경 */
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        td {
+          white-space: nowrap;
+        }
+
+        .price_quantity {
+          text-align: right;
+        }
+      }
+    }
+
+    .custom_number_input {
+      text-align: center;
+
+      input[type='text'] {
+        width: calc(100% - 12px); // 부모 width 값에 padding값 12px 뺀값
+        padding: 10px 6px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        outline: none;
+        text-align: center;
+        background-color: transparent;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+        // Remove default spin buttons
+        -moz-appearance: textfield;
+
+        &:focus {
+          border-color: #007bff;
+          box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+        }
+      }
+
+      // Remove spin buttons for Chrome
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    }
+
+    button {
+      width: 100%;
+      background-color: #e74c3c;
+
+      &:hover {
+        background-color: #c0392b;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+    }
+  }
+}
+
+.estimate_controls {
+  .download_container {
+  }
+}

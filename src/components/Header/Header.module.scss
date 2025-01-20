@@ -1,0 +1,38 @@
+$header-padding: 8px;
+
+.container {
+  height: calc(8vh - ($header-padding * 2));
+  background-color: #ffffff; /* 흰색 헤더 */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+  border-bottom: 1px solid #e0e0e0; /* 얇은 구분선 */
+  padding: $header-padding ($header-padding * 2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  h3 {
+    font-size: 1.5em;
+    margin-right: auto;
+  }
+
+  .darkmode,
+  .lightmode {
+    $darkmode-padding: 6px;
+    padding: $darkmode-padding;
+    width: calc(36px + ($darkmode-padding * 2));
+    height: calc(36px + ($darkmode-padding * 2));
+    border-radius: 25px;
+
+    &.darkmode {
+      background-color: #000;
+    }
+
+    &.lightmode {
+      background-color: #fff;
+    }
+
+    img {
+      width: 36px;
+    }
+  }
+}

@@ -1,0 +1,29 @@
+/* styles/global.scss */
+@font-face {
+  font-family: 'Noto Sans KR';
+  src: url('../fonts/NotoSansKR-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Noto Sans KR';
+  src: url('../fonts/NotoSansKR-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+* {
+  font-family: 'Noto Sans KR', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+// body {
+//   background-color: #000;
+// }
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
